@@ -1,0 +1,78 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>jquery-clicks</title>
+
+	<meta name="author" content="tx2z">
+	<meta name="Copyright" content="Copyright tx2z 2012. All Rights Reserved.">
+
+	<!-- CSS  -->
+	<style>
+		.container {
+			margin: 50px auto;
+			text-align: center;
+			width: 970px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<a href="#">click me with the left button (one, two or tree times), with the right button, or hold the left button more than 500ms over me. </a>
+		<br /><br />
+		<span class="message"></span>
+	</div>
+	<!-- here comes the javascript -->
+	<!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script>
+		window.jQuery || document.write("<script src='jquery.js'>\x3C/script>")
+	</script>
+	<script src="jquery.longclick-min.js"></script>
+	<!-- custom functions -->
+	<script>
+	(function($) {
+
+		// Usefull variables
+		var clicks = 0;
+		var longclick = false;
+
+		// Change the long click duration (in ms):
+		//jQuery.longclick.duration = 500;
+
+		$(document).ready(function() {
+			// Event click handlers
+	    	$('a').bind({ 
+	    		click: function(){ // Left (normal) click
+	    			if (longclick == true) {
+	    				longclick = false;
+	    			}else {
+		    			clicks++;
+		    			if (clicks == 1) {
+			                setTimeout(function() {
+			                    if (clicks == 1) { // One click
+			                        $('.message').html('click');
+			                    } else if (clicks == 2) { // Double click
+			                        $('.message').html('dblclick');
+			                    } else { // Triple click
+			                        $('.message').html('tripleclick');
+			                    }
+			                    clicks = 0;
+			                }, 500);
+			            }
+			        }
+		        },
+	    		contextmenu: function(){ // Right click
+	    			$('.message').html('left-click');
+		   			return false; // The retun false avoid show the context menu
+				},
+				longclick: function(){ // Long click
+	    			$('.message').html('long click');
+	    			longclick = true; // Stop the "normal" click to execute
+				}
+	    	});
+		});
+	})(window.jQuery);
+	</script>
+
+</body>
+</html>
