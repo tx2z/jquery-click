@@ -6,9 +6,9 @@ Really a mix of:
 * https://github.com/pisi/Longclick
 * https://gist.github.com/399624
 
-Requirements:
+Example:
 -------------
-Example: http://www.caosmental.com/webs/jquery-click
+http://www.caosmental.com/webs/jquery-click
 
 
 Requirements:
